@@ -31,3 +31,23 @@ func GetAllGuru(db *sql.DB) {
 		fmt.Println("i:", i, "v:", v.Id, v.Nama)
 	}
 }
+
+func InsertGuru(db *sql.DB, newGuru entities.Guru) {
+	var query = "INSERT INTO guru(id, nama, telepon, email) VALUES(?,?,?,?)"
+	statement, errPrepare := db.Prepare(query)
+	if errPrepare != nil {
+		log.Fatal("error prepare insert", errPrepare.Error())
+	}
+
+	result, errInsert := statement.Exec(newGuru.Id, newGuru.Nama, newGuru.Telepon, newGuru.Email)
+	if errInsert != nil {
+		log.Fatal("error exec insert", errInsert.Error())
+	} else {
+		row, _ := result.RowsAffected()
+		if row > 0 {
+			fmt.Println("proses berhasil dijalankan")
+		} else {
+			fmt.Println("proses gagal")
+		}
+	}
+}

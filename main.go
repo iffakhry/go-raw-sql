@@ -15,7 +15,6 @@ import (
 	"be15/rawsql/controllers"
 	"be15/rawsql/entities"
 	"fmt"
-	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -47,23 +46,8 @@ func main() {
 		fmt.Println("Masukkan Email Guru:")
 		fmt.Scanln(&newGuru.Email)
 
-		var query = "INSERT INTO guru(id, nama, telepon, email) VALUES(?,?,?,?)"
-		statement, errPrepare := db.Prepare(query)
-		if errPrepare != nil {
-			log.Fatal("error prepare insert", errPrepare.Error())
-		}
-
-		result, errInsert := statement.Exec(newGuru.Id, newGuru.Nama, newGuru.Telepon, newGuru.Email)
-		if errInsert != nil {
-			log.Fatal("error exec insert", errInsert.Error())
-		} else {
-			row, _ := result.RowsAffected()
-			if row > 0 {
-				fmt.Println("proses berhasil dijalankan")
-			} else {
-				fmt.Println("proses gagal")
-			}
-		}
+		controllers.InsertGuru(db, newGuru)
+		
 
 	// CASE 3
 	case 3:
