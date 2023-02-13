@@ -4,12 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 	"time"
 )
 
 func ConnectToDB() *sql.DB {
 	// <username>:<password>@tcp(<hostname>:<port>)/<db_name>
-	var connectionString = "root:qwerty123@tcp(127.0.0.1:3306)/db_be15"
+	var connectionString = os.Getenv("DB_CONNECTION")
+	log.Println("db", connectionString)
 	db, err := sql.Open("mysql", connectionString)
 	if err != nil {
 		log.Fatal("error open connection", err.Error())
