@@ -28,7 +28,7 @@ func ConnectToDB() *sql.DB {
 	} else {
 		fmt.Println("berhasil")
 	}
-
+	fmt.Println("tambahan bari dari branch B")
 	return db
 
 }
