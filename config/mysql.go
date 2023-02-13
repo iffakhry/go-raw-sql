@@ -29,6 +29,7 @@ func ConnectToDB() *sql.DB {
 		fmt.Println("berhasil")
 	}
 	fmt.Println("tambahan bari dari branch B")
+	fmt.Println("tambahan dari branch A")
 	return db
 
 }
